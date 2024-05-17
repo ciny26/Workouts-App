@@ -1,0 +1,50 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Corrected align-items value */
+    width: 75%;
+    padding: 0 40px;
+    height: calc(100vh - 180px); /* Set a fixed height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc; /* Optional: Add a border for clarity */
+    border-radius: 8px; /* Optional: Add border-radius */
+}
+h1{
+    color: black;
+}
+
+.workout-card{
+    display: flex;
+    width: 80%;
+    background-color: white;
+    color: rgb(59, 59, 59);
+    padding: 3px 6px;
+    margin: 16px 0;
+    border-radius: 12px;
+    border-left: 8px solid green;
+}
+
+.workout-infos{
+    width: 50%;
+}
+.buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 50%;
+}
+
+button{
+    cursor: pointer;
+}
+
+.d-btn{
+    background-color: red;
+    width: 150px;
+
+   
+}
+.u-btn{
+    background-color: blue;
+    width: 150px;
+}
