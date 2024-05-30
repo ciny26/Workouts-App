@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./AddForm.css"
 import { useWorkouts } from "../../hooks/useWorkouts";
+import { useAuth } from "../../hooks/useAuth";
 const AddWorkout = () => {
     const[wTitle , setWTitle] = useState("")
     const[wReps , setWReps] = useState(null)
@@ -8,14 +9,20 @@ const AddWorkout = () => {
     const [emptyFields , setEmptyFields] = useState([])
     const [err , setErr] = useState("")
     const {dispatch} = useWorkouts()
+    const {user} = useAuth()
 
     const handleSubmit = async(e)=>{
         e.preventDefault()
+        if(!user){
+            setErr("You need to login first")
+            return
+        }
        try {
             const response = await fetch("/api/workouts" , {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    "authorization":`Bearer ${user.token} `
                 },
                 body: JSON.stringify({
                     title: wTitle,  // Assuming wTitle is your state holding the workout title

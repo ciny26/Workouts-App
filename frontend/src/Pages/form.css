@@ -1,0 +1,29 @@
+.form-cont{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 80px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 400px;
+    background-color: white;
+    padding: 18px 8px;
+}
+
+h3{
+    margin: 0 auto;
+}
+
+.input-group{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+button{
+    width: 100px;
+    background-color: rgb(4, 111, 59);
+}
