@@ -1,20 +1,31 @@
+import { useAuth } from "../../hooks/useAuth"
 import { useWorkouts } from "../../hooks/useWorkouts"
+import {useState} from "react"
 import "./workouts.css"
 
 const Workout = ({workout}) => {
     const {dispatch} = useWorkouts()
+    const [err , setErr] = useState(false)
+    const{user} = useAuth()
     const handleDeleteWorkout = async()=>{
+        if(!user){
+            setErr(true)
+            console.log(user)
+            return
+        }
         const response = await fetch("api/workouts/" + workout._id , {
             method : "DELETE" , 
-            "Text-Content" : "application/json"
+            headers:{
+                "Authorization":`Bearer ${user.token} `,
+                "Text-Content" : "application/json" , 
+                
+            }
         })
         if(!response.ok){
             throw new Error("cannot delete the workout")
         }
         const json = response.json()
         dispatch({type:"DELETE_WORKOUT" , payload:workout._id})
-        
-        
     }
     return ( 
         <div className="workout-card">

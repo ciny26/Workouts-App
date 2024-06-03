@@ -2,16 +2,19 @@ require("dotenv").config()
 const mongoose = require("mongoose")
 const express = require("express")
 const workoutRouter = require("./routes/workouts")
+const userRouter = require("./routes/user")
+
+
+
 //creating an express app
 const app = express()
+app.use(express.json());
 
 
 
 //middleware
-app.use(express.json())
 app.use((req , res , next)=>{
     console.log(req.path , req.method)
-    console.log("motherfuckers")
     next()
 })
 
@@ -20,7 +23,7 @@ app.use((req , res , next)=>{
 
 //routes
 app.use("/api/workouts" , workoutRouter)
-
+app.use("/api" , userRouter)
 mongoose.connect(process.env.MONG_URI)
 .then(()=>{
     //listening after connetcing to the database

@@ -3,7 +3,9 @@ const mongoose = require("mongoose")
 
 //get a all workouts
  const getWorkouts = async(req , res)=>{
-    const workouts = await Workout.find({}).sort({createdAt:-1})
+    const user_id = req.user._id
+    console.log("user id" , user_id)
+    const workouts = await Workout.find({user_id}).sort({createdAt:-1})
     if (workouts) {
         return res.status(200).json(workouts)
 
@@ -16,8 +18,9 @@ const mongoose = require("mongoose")
 
 //get a single workout
 const getWorkout = async(req , res)=>{
+    const user_id = req.user._id //the owner id
     const {id} = req.params
-    const workout = await Workout.findById(id)
+    const workout = await Workout.find({user_id , id})
     if (!workout) {
         return res.status(404).json({msg:"there no such workout like this !"})
 
@@ -29,6 +32,7 @@ const getWorkout = async(req , res)=>{
 
 //add a workout
  const addWorkout =  async(req , res)=>{
+    const user_id = req.user._id //the owner id
     const {title , reps , load} = req.body
     const emptyFields = []
     if(!title){
@@ -46,7 +50,8 @@ const getWorkout = async(req , res)=>{
         
        
     }
-    const workout = await Workout.create({title , reps , load})
+    console.log(user_id)
+    const workout = await Workout.create({title , reps , load , user_id})
     res.status(200).json(workout) 
 }
    
